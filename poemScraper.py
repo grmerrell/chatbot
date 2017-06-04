@@ -14,6 +14,7 @@ dailyPoemLink = homepage.select("#daily_content strong a")[0].get("href")
 num = int(re.compile('\d{5}').findall(dailyPoemLink)[0])
 
 #loop through the last 364 days' worth of poems
+# for date in range(num-363, num):
 for date in range(num-363, num):
     #set page equal to the current poem's url
     page = requests.get("http://poems.com/poem.php?date=" + str(date))
@@ -29,5 +30,9 @@ for date in range(num-363, num):
 
     #write the poem to a separate text file
     for x in range(0, len(poem)-1):
-        with open('poems.txt', 'a') as f:
-            f.write(poem[x].get_text().encode("utf-8") + "\n")
+        #ignore bolded text, single digits, single digits with periods behind them and asterisks
+        # TODO refine. Still ignores certain single digits (e.g., if they're next to certain html tags)
+        if re.search('<strong>|(?<!\S)\d(?!\S)|(?<!\S)\d\.(?!\S)|\*', str(poem[x]))==None:
+            # print(poem[x])
+            with open('poems.txt', 'a') as f:
+                f.write(poem[x].get_text().encode("utf-8") + "\n")
