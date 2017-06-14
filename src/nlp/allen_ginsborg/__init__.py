@@ -28,7 +28,7 @@ def synonym(syn):
     line = syn.rsplit(' ', 1)[0]
     syn = syn.rsplit(' ', 1)[-1]
 
-    print syn
+    print(syn)
 
     store = []
     for synset in wn.synsets(syn):
@@ -64,7 +64,7 @@ def main():
     	What mad lyric should I spit this time?>>>""")
 
     content_with_rhymes = rhymeSayer(content)
-    print content_with_rhymes
+    print(content_with_rhymes)
 
     # next, replace the end of a line with a synonym
     # then, not and an antonym
@@ -75,7 +75,7 @@ def main():
     syn = raw_input("bro you want me to switch up your last word?>>>")
 
     synonymized_words = synonym(syn)
-    print synonymized_words
+    print(synonymized_words)
 
 #################################################################
 # /Command line interface #######################################

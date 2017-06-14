@@ -7,9 +7,9 @@ import json
 import logging
 import os
 import requests
+import allen_ginsborg
 
 from base64 import b64decode
-from urlparse import parse_qs
 
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedToken']
