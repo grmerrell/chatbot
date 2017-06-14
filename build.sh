@@ -15,6 +15,7 @@ pip install setuptools -t ./libs/
 echo "Library files built."
 # build source
 echo "Building source zip..."
+mkdir build
 rm build/lambdaBuild.zip
 cd libs
 zip -r ../build/lambdaBuild.zip ./*
