@@ -1,10 +1,12 @@
 import pronouncing
 import random
 import nltk
+import os
 from nltk.corpus import wordnet as wn
 
 # Add local path to corpus data
-nltk.data.path.append('./allen_ginsborg/nltk_data/')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+nltk.data.path.append(dir_path + "/nltk_data/")
 
 #################################################################
 # Common functions ##############################################
@@ -17,9 +19,16 @@ def rhymeSayer(content):
 		and replaces it with a random rhyming word then returns
 		what they said - the last word + a word that rhymes with the last word
 	"""
+    if not content:
+        return ''
+
     line = content.rsplit(' ', 1)[0]
     word_to_rhyme = content.rsplit(' ', 1)[-1]
     rhyme_list = pronouncing.rhymes(word_to_rhyme)
+
+    if not rhyme_list:
+        return ''
+
     rhyme = random.choice(rhyme_list)
     return line + ' ' + rhyme
 

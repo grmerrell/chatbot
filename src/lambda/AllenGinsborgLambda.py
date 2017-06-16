@@ -8,6 +8,7 @@ import logging
 import os
 import requests
 import allen_ginsborg as ag
+import sys
 
 from base64 import b64decode
 
@@ -66,6 +67,12 @@ def lambda_handler(event, context):
             for entry in data['entry']:
                 for msg in entry['messaging']:
                     if 'message' in msg and 'text' in msg['message']:
-                        reply = ag.rhymeSayer(msg['message']['text'])
-                        send_message(msg['sender']['id'], reply)
+                        reply = ""
+                        try:
+                            reply = ag.rhymeSayer(msg['message']['text'])
+                        except:
+                            logger.error("Unexpected error: ", sys.exc_info()[0])
+                        else:
+                            if reply:
+                                send_message(msg['sender']['id'], reply)
         return respond(None, "Ok")
