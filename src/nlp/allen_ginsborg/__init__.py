@@ -2,6 +2,7 @@ import pronouncing
 import random
 import nltk
 import os
+import re
 from nltk.corpus import wordnet as wn
 
 # Add local path to corpus data
@@ -12,7 +13,6 @@ nltk.data.path.append(dir_path + "/nltk_data/")
 # Common functions ##############################################
 #################################################################
 
-
 def rhymeSayer(content):
     """
 		Takes user input and pulls off the last part of their line
@@ -22,8 +22,13 @@ def rhymeSayer(content):
     if not content:
         return ''
 
-    line = content.rsplit(' ', 1)[0]
-    word_to_rhyme = content.rsplit(' ', 1)[-1]
+    content_array = content.rsplit(' ', 1)
+    if len(content_array) > 1:
+        line = content_array[0]
+    else:
+        line = ''
+
+    word_to_rhyme = re.sub('[^a-zA-Z]+','', content_array[-1])
     rhyme_list = pronouncing.rhymes(word_to_rhyme)
 
     if not rhyme_list:
